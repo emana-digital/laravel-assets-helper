@@ -1,0 +1,12 @@
+{
+  "name": "emana-digital/laravel-assets-helpers",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alfredo Peres",
+      "email": "alfredo@emana.digital"
+    }
+  ],
+  "require": {}
+}
