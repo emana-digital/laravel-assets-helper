@@ -8,5 +8,21 @@
       "email": "alfredo@emana.digital"
     }
   ],
-  "require": {}
+  "require": {
+    "php": "^7.2",
+    "illuminate/support": "^6.3",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "emanadigital\\LaravelAssetsHelper\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "emanadigital\\LaravelAssetsHelper\\Provider"
+      ]
+    }
+  }
 }
