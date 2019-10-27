@@ -29,25 +29,29 @@ class LaravelAssetsHelper
 
 	protected function getLinkList(string $entryname, string $linkType)
 	{
-		if (file_exists($this->assetsManifestPath)) {
-			$assets = json_decode(file_get_contents($this->assetsManifestPath), true);
+		try {
+			if (file_exists($this->assetsManifestPath)) {
+				$assets = json_decode(file_get_contents($this->assetsManifestPath), true);
 
-			if (isset($assets)) {
-				if (Arr::has($assets, $entryname)) {
-					if (Arr::has($assets[$entryname], $linkType)) {
-						return $assets[$entryname][$linkType];
-					} else {
-						throw new Exception("Tipo $linkType do $entryname no assets.json não encontrada");
-					}
-				};
-				throw new Exception("Entrada $entryname no assets.json não encontrada");
+				if (isset($assets)) {
+					if (Arr::has($assets, $entryname)) {
+						if (Arr::has($assets[$entryname], $linkType)) {
+							return $assets[$entryname][$linkType];
+						} else {
+							throw new Exception("Tipo $linkType do $entryname no assets.json não encontrada");
+						}
+					};
+					throw new Exception("Entrada $entryname no assets.json não encontrada");
+				} else {
+					throw new Exception('Arquivo assets.json vazio');
+				}
 			} else {
-				throw new Exception('Arquivo assets.json vazio');
+				throw new Exception('Arquivo assets.json não encontrado');
 			}
-
-		} else {
-			throw new Exception('Arquivo assets.json não encontrado');
+		} catch (Exception $error) {
+			echo $error->getMessage();
 		}
+		return [];
 	}
 
 	public function scriptTags(string $entryname): HtmlString

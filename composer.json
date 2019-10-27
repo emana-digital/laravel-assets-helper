@@ -1,5 +1,6 @@
 {
-  "name": "emana-digital/laravel-assets-helpers",
+  "name": "emana-digital/laravel-assets-helper",
+  "version": "0.1.0",
   "type": "project",
   "license": "MIT",
   "authors": [
