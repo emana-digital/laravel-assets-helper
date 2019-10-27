@@ -17,12 +17,5 @@
     "psr-4": {
       "emanadigital\\LaravelAssetsHelper\\": "src/"
     }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "emanadigital\\LaravelAssetsHelper\\Provider"
-      ]
-    }
   }
 }
