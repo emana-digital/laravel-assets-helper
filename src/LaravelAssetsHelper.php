@@ -1,9 +1,7 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 namespace emanadigital;
 
-use Exception;
-use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\App;
 
@@ -29,29 +27,17 @@ class LaravelAssetsHelper
 
 	protected function getLinkList(string $entryname, string $linkType)
 	{
-		try {
-			if (file_exists($this->assetsManifestPath)) {
-				$assets = json_decode(file_get_contents($this->assetsManifestPath), true);
-
-				if (isset($assets)) {
-					if (Arr::has($assets, $entryname)) {
-						if (Arr::has($assets[$entryname], $linkType)) {
-							return $assets[$entryname][$linkType];
-						} else {
-							throw new Exception("Tipo $linkType do $entryname no assets.json não encontrada");
-						}
-					};
-					throw new Exception("Entrada $entryname no assets.json não encontrada");
-				} else {
-					throw new Exception('Arquivo assets.json vazio');
-				}
-			} else {
-				throw new Exception('Arquivo assets.json não encontrado');
-			}
-		} catch (Exception $error) {
-			echo $error->getMessage();
+		$assets = json_decode(file_get_contents($this->assetsManifestPath), true);
+		$linkList = $assets[$entryname][$linkType];
+		/**
+		 * Se houver apenas um elemento de um tipo no assets.json, ele é representado como uma string,
+		 * criamos uma array com este elemento
+		 */
+		if (!is_array($linkList)) {
+			return [$linkList];
 		}
-		return [];
+
+		return $linkList;
 	}
 
 	public function scriptTags(string $entryname): HtmlString
