@@ -10,8 +10,18 @@
   ],
   "require": {
     "php": "^7.2",
-    "illuminate/support": "^6.3",
+    "illuminate/support": "^6.17",
     "ext-json": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "emanadigital\\LaravelAssetsHelperProvider"
+      ]
+    }
   },
   "autoload": {
     "psr-4": {

@@ -2,37 +2,31 @@
 
 namespace emanadigital;
 
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\HtmlString;
 
-class LaravelAssetsHelper
-{
+class LaravelAssetsHelper {
 	protected $assetsManifestPath;
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->assetsManifestPath = App::basePath() . '/public/assets/assets.json';
 	}
 
-	public function linkTags(string $entryname): HtmlString
-	{
-		$linkList = $this->getLinkList($entryname, 'css');
+	public function scriptTags(string $entryname): HtmlString {
+		$linkList = $this->getLinkList($entryname, 'js');
 
-		$linkTags = array_map(function ($link) {
-			return '<link rel="stylesheet" href="' . $link . '">';
+		$scriptTags = array_map(static function ($link) {
+			return '<script type="application/javascript" src="' . $link . '"></script>';
 		}, $linkList);
 
-		return new HtmlString(implode('', $linkTags));
+		return new HtmlString(implode('', $scriptTags));
 	}
 
-	protected function getLinkList(string $entryname, string $linkType)
-	{
+	protected function getLinkList(string $entryname, string $linkType) {
 		$assets = json_decode(file_get_contents($this->assetsManifestPath), true);
+
 		$linkList = $assets[$entryname][$linkType];
-		/**
-		 * Se houver apenas um elemento de um tipo no assets.json, ele é representado como uma string,
-		 * criamos uma array com este elemento
-		 */
+
 		if (!is_array($linkList)) {
 			return [$linkList];
 		}
@@ -40,14 +34,13 @@ class LaravelAssetsHelper
 		return $linkList;
 	}
 
-	public function scriptTags(string $entryname): HtmlString
-	{
-		$linkList = $this->getLinkList($entryname, 'js');
+	public function linkTags(string $entryname): HtmlString {
+		$linkList = $this->getLinkList($entryname, 'css');
 
-		$scriptTags = array_map(function ($link) {
-			return '<script type="application/javascript" src="' . $link . '"></script>';
+		$linkTags = array_map(static function ($link) {
+			return '<link rel="stylesheet" href="' . $link . '">';
 		}, $linkList);
 
-		return new HtmlString(implode('', $scriptTags));
+		return new HtmlString(implode('', $linkTags));
 	}
 }

@@ -2,17 +2,8 @@
 /.vscode
 /.idea
 
-# Dependencies
-/node_modules
+# Vendor
 /vendor
 
-# Front-end Build
-/public/assets
-
-# Project
-/public/storage
-/storage/*.key
-.env
-.env.backup
-.phpunit.result.cache
-yarn-error.log
+# OS
+.DS_Store
