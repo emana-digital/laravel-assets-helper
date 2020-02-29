@@ -1,7 +1,7 @@
 # Assets Helper 
 Laravel Blade helpers for a easy integration with <a href="https://github.com/ztoben/assets-webpack-plugin">assets-webpack-plugin</a>.
 For now, `v1.0.0` will only work with a compatible configuration. If you need more personalization, let me now, or just send a pull-request.
-The `assets.json` file is expected to be in `/public/assets/` directory.
+The generated `assets.json` file is expected to be in `/public/assets/` directory.
 
 ### How to use
 1 - Configure `assets-weback-plugin`
@@ -36,11 +36,11 @@ composer require emana-digital/laravel-assets-helper
 <html>
 <head>
     <title>My Laravel SPA</title>
-    @assetsHelperLinkTags('website')
+    @assetsHelperLinkTags(website)
 </head>
 <body>
 
-@assetsHelperScriptTags('website')
+@assetsHelperScriptTags(website)
 </body>
 </html>
 ```
