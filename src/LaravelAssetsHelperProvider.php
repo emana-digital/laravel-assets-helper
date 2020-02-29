@@ -2,13 +2,15 @@
 
 namespace emanadigital;
 
+use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 
-class LaravelAssetsHelperProvider {
+class LaravelAssetsHelperProvider extends ServiceProvider {
 	protected $assetsHelper;
 
-	public function __construct() {
+	public function __construct($app) {
 		$this->assetsHelper = new LaravelAssetsHelper();
+		ServiceProvider::__construct($app);
 	}
 
 	public function boot(): void {
