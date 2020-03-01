@@ -9,7 +9,11 @@ class LaravelAssetsHelper {
 	protected $assetsManifestPath;
 
 	public function __construct() {
-		$this->assetsManifestPath = App::basePath() . '/public/assets/assets.json';
+		$assetsManifestPath = App::basePath() . '/public/assets/assets.json';
+
+		if (file_exists($assetsManifestPath)) {
+			$this->assetsManifestPath = $assetsManifestPath;
+		}
 	}
 
 	public function scriptTags(string $entryname): HtmlString {
@@ -23,15 +27,18 @@ class LaravelAssetsHelper {
 	}
 
 	protected function getLinkList(string $entryname, string $linkType) {
-		$assets = json_decode(file_get_contents($this->assetsManifestPath), true);
+		if (isset($this->assetsManifestPath)) {
+			$assets = json_decode(file_get_contents($this->assetsManifestPath), true);
+			if (isset($assets[$entryname][$linkType])) {
+				$linkList = $assets[$entryname][$linkType];
+				if (!is_array($linkList)) {
+					return [$linkList];
+				}
 
-		$linkList = $assets[$entryname][$linkType];
-
-		if (!is_array($linkList)) {
-			return [$linkList];
+				return $linkList;
+			}
 		}
-
-		return $linkList;
+		return [];
 	}
 
 	public function linkTags(string $entryname): HtmlString {
