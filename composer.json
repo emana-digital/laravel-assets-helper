@@ -1,5 +1,6 @@
 {
   "name": "emana-digital/laravel-assets-helper",
+  "description": "Laravel Blade helpers for a easy integration with assets-webpack-plugin.",
   "type": "project",
   "license": "MIT",
   "authors": [
@@ -9,9 +10,8 @@
     }
   ],
   "require": {
-    "php": "^7.2.5",
-    "illuminate/support": "^7.0",
-    "ext-json": "*"
+    "php": "^7.3|^8.0",
+    "illuminate/support": "^8.12"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master"
